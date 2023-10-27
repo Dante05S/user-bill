@@ -7,6 +7,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UserBillApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UserBillApplication.class, args);
-		System.out.println("Hola mundo");
 	}
 }
