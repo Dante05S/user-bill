@@ -1,6 +1,8 @@
-package com.user.bill.userbill.model;
+package com.user.bill.userbill.model.Bill;
 
 import java.io.Serializable;
+
+import com.user.bill.userbill.model.User.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,12 +13,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "bill")
 public class Bill implements Serializable {

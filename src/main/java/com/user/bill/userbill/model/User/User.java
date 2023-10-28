@@ -1,8 +1,10 @@
-package com.user.bill.userbill.model;
+package com.user.bill.userbill.model.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.user.bill.userbill.model.Bill.Bill;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,6 +24,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -38,6 +42,7 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Bill> bills = new ArrayList<>();
+    private List<Bill> bills;
 }
