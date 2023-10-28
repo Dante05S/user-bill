@@ -1,49 +1,44 @@
 package com.user.bill.userbill.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class BaseService<E, ID, R extends CrudRepository<E, ID>> implements IBaseService<E, ID> {
+import com.user.bill.userbill.helpers.exceptions.NotFoundException;
 
-    @Autowired
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public abstract class BaseService<E, ID, R extends CrudRepository<E, ID>> {
     private R repository;
 
     @Transactional
-    @Override
     public E create(E entity) {
         return repository.save(entity);
     }
 
     @Transactional(readOnly = true)
-    @Override
     public Iterable<E> getAll() {
         return repository.findAll();
     }
 
     @Transactional(readOnly = true)
-    @Override
-    public E get(ID id) {
+    public E get(ID id, String messageError) {
         E entity = repository.findById(id).orElse(null);
         if (entity == null) {
-            throw new RuntimeException();
+            throw new NotFoundException(messageError);
         }
         return entity;
     }
 
     @Transactional
-    @Override
-    public E update(ID id, E entity) {
-        this.get(id);
+    public E update(ID id, E entity, String messageError) {
+        this.get(id, messageError);
         return repository.save(entity);
     }
 
     @Transactional
-    @Override
-    public void delete(ID id) {
-        this.get(id);
+    public void delete(ID id, String messageError) {
+        this.get(id, messageError);
         repository.deleteById(id);
     }
     
